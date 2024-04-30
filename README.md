@@ -20,3 +20,6 @@ fetch("https://raw.githubusercontent.com/jota-js/Asfixy/main/Internal-Ui")
 ```
 
 and now u will have a 100% ExE power at u hands.
+
+# 📱 Support Contact 
+Discord Server: https://discord.com/invite/9PHwxdqMm5
