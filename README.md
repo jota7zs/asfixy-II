@@ -8,7 +8,7 @@ Sadly its a close source project because of some past skids from my other projec
 Asfixy Have an **__100% ExE__** (100% Js Functions Tested) working! This is, u can run any js code direcly from a bypassed internal Ui.
 
 # 📜 Executing Tutorial
-Go to a site with a *Closed Console APi*(Google, Cookie Clicker, etc) and direct on console execute the script:
+Go to a site with a *Closed Console APi* (Google, Cookie Clicker, etc) and direct on console execute the script:
 ```js
 console.clear();
 
@@ -16,6 +16,7 @@ fetch("https://raw.githubusercontent.com/jota-js/Asfixy/main/Internal-Ui")
   .then(response => response.text())
   .then(script => {
     eval(script);
-  })```
+  })
+```
 
 and now u will have a 100% ExE power at u hands.
