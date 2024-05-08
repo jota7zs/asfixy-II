@@ -1,4 +1,4 @@
-# ℹ️ Asfixy V7.5
+# ℹ️ Asfixy V8
 Its a project based 100% on javascript to make cheats on cookie clicker or others javascript games with an internal custom ui to execute and create u own auto farms for any game.
 
 # 💻 Scripts Support
@@ -18,5 +18,10 @@ fetch("https://raw.githubusercontent.com/jota-js/Asfixy/main/Internal-Ui")
 
 and now u will have a 100% ExE power at u hands.
 
-# 📱 Support Contact 
+# 💰 Pricing
+Asfixy is the unique mobile cheat and its paid, because this we decided to demand a $1,99 for a lifetime key.
+
+# 📱 Buy Service Contact 
 Discord Server: https://discord.com/invite/9PHwxdqMm5
+
+### Thanks for Using <3
