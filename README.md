@@ -18,6 +18,20 @@ fetch("https://raw.githubusercontent.com/jota-js/Asfixy/main/Internal-Ui")
 
 and now u will have a 100% ExE power at u hands.
 
+#🛠️ CC Auto Farm Tutorial
+In Asfixy ui. place this JS code
+```js
+console.clear();
+
+fetch("https://raw.githubusercontent.com/jota-js/Asfixy/main/script.js")
+  .then(response => response.text())
+  .then(script => {
+    eval(script);
+  })
+```
+
+and now u can see the power >:)
+
 # 💰 Pricing
 Asfixy is the unique mobile cheat and its paid, because this we decided to demand a ~~($1,99)~~ $0.99 for a lifetime key.
 
