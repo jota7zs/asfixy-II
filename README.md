@@ -18,7 +18,7 @@ fetch("https://raw.githubusercontent.com/jota-js/Asfixy/main/Internal-Ui")
 
 and now u will have a 100% ExE power at u hands.
 
-#🛠️ CC Auto Farm Tutorial
+# 🛠️ CC Auto Farm Tutorial
 In Asfixy ui. place this JS code
 ```js
 console.clear();
