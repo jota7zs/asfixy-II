@@ -61,8 +61,12 @@ function hi() {
 
         setTimeout(function () {
           Game.toSave = true;
-          location.reload();
         }, 1000);
+
+        setTimeout(function () {
+          location.reload();
+        }, 5000);
+
       });
     }, 1000);
   }, 20000);
