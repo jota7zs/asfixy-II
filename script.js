@@ -56,15 +56,18 @@ function hi() {
       })
       .then(() => {
         setTimeout(function () {
-          Game.SesameReset();
-        }, 3000);
-
-        setTimeout(function () {
-          Game.toSave = true;
+          Game.HardReset(2);
+          console.log('reseted')
         }, 1000);
 
         setTimeout(function () {
+          Game.toSave = true;
+          console.log('saved')
+        }, 3000);
+
+        setTimeout(function () {
           location.reload();
+          console.log('reloaded')
         }, 5000);
 
       });
