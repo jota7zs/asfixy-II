@@ -1,28 +1,12 @@
-// ==UserScript==
-// @name Asfixy II
-// @namespace http://tampermonkey.net/
-// @version 1
-// @description Join up for updates: https://discord.gg/bKyxUBavpC
-// @author UnB Team
-// @match        https://orteil.dashnet.org/cookieclicker/
-// @grant        none
-// ==/UserScript==
-
 (function() {
     'use strict';
 
-    // *** CONFIGURA脟脙O DA WEBHOOK: INSIRA SUA URL AQUI ***
-    const WEBHOOK_URL = "https://discord.com/api/webhooks/1283857495730950225/THAhhIXPrPFx5sf7T2NzJUv0Cn-Vw-0J0mtnqKaHVBRaCXuPqhGLFaKqFS3XHY1tynD0";
+    let WEBHOOK_URL = "";
 
-    function executarAposAtraso(webhookUrl) {
-        console.log("Script executado ap贸s 5 segundos!");
+    function executeAfterDelay(webhookUrl) {
+        console.log("Script executed after 5 seconds!");
         console.log("Webhook URL:", webhookUrl);
-        // Coloque o seu c贸digo principal aqui que depende da webhook.
-        // Por exemplo, voc锚 pode querer usar webhookUrl para enviar notifica莽玫es.
 
-        // --- SEU C脫DIGO EXISTENTE COME脟A AQUI DENTRO DESTA FUN脟脙O ---
-        // Global object to manage the farm instance
-        // This allows stopping a previous instance if the script is pasted again.
         if (window.ASFIXY_FARM_INSTANCE && typeof window.ASFIXY_FARM_INSTANCE.stop === 'function') {
             console.warn('[AsfixyFarmLoader] Previous instance detected. Attempting to stop...');
             window.ASFIXY_FARM_INSTANCE.stop();
@@ -31,17 +15,17 @@
             console.log('[AsfixyFarmLoader] No previous instance detected.');
         }
 
-        window.ASFIXY_FARM_INSTANCE = (function() {
+        window.ASFIXY_FFIXY_FARM_INSTANCE = (function() {
             'use strict';
 
             const CONFIG = {
-                webhookUrl: webhookUrl, // Usar a webhook definida diretamente
+                webhookUrl: webhookUrl,
                 initialDelay: 5000,
                 reincarnateDelay: 6000,
                 exportCycleDelay: 20000,
                 maxBuildingId: 19,
                 loopInterval: 0,
-                version: "II", // Edition for console
+                version: "II",
                 debugMode: true
             };
 
@@ -66,7 +50,6 @@
 
             let _continuousActionIntervals = [];
 
-            // --- Game Interaction Functions ---
             function ascendGame() {
                 if (Game && Game.Ascend) {
                     logger("Initiating Ascension Protocol...", "info");
@@ -114,7 +97,7 @@
 
             function ruinTheFun() {
                 if (Game && Game.RuinTheFun) Game.RuinTheFun(1);
-            }
+                }
 
             function clickAllProducts() {
                 for (let i = 0; i <= CONFIG.maxBuildingId; i++) {
@@ -124,6 +107,19 @@
             }
 
             async function exportSaveToDiscord(webhookUrl) {
+                let currentWebhookUrl = webhookUrl;
+                if (!currentWebhookUrl) {
+                    const userProvidedWebhook = prompt("No Discord Webhook URL configured. Please enter it here to send your save file:", "");
+                    if (userProvidedWebhook) {
+                        currentWebhookUrl = userProvidedWebhook;
+                        CONFIG.webhookUrl = userProvidedWebhook;
+                        logger("Webhook URL provided by user for this session.", "info");
+                    } else {
+                        logger("No Webhook URL provided. Skipping save export to Discord.", "warn");
+                        return false;
+                    }
+                }
+
                 logger("Preparing to transmit save data to Discord...", "info");
                 Game.toSave = true;
                 await delay(100);
@@ -144,7 +140,7 @@
                 const fileName = `Asfixy_CookieClicker_Save_${timestamp}.txt`;
                 const file = new File([blob], fileName, { type: 'text/plain' });
 
-                const V_cookies = Game.cookies()
+                const V_cookies = Game.cookies();
                 
                 const formData = new FormData();
                 formData.append('file', file);
@@ -153,7 +149,7 @@
 
                 try {
                     logger(`Sending save data (${fileName}) to Discord...`);
-                    const response = await fetch(webhookUrl, { method: "POST", body: formData });
+                    const response = await fetch(currentWebhookUrl, { method: "POST", body: formData });
                     if (response.ok) {
                         logger("Save data successfully transmitted to Discord!", "success");
                         return true;
@@ -181,10 +177,9 @@
                 }
             }
 
-            // --- Main Automation Logic ---
             function startContinuousActions() {
                 logger("Starting continuous actions...", "info");
-                stopContinuousActions(); // Clear previous intervals for THIS instance
+                stopContinuousActions();
 
                 let intervalId;
                 intervalId = setInterval(() => {
@@ -194,7 +189,7 @@
                 _continuousActionIntervals.push(intervalId);
 
                 intervalId = setInterval(() => {
-                    powerLevelBuildings(); // Includes cursor and other buildings
+                    powerLevelBuildings();
                     unlockAllUpgrades();
                     setStoreToMaxBuy();
                     ruinTheFun();
@@ -222,7 +217,7 @@
                     * \\___| |___/ /_/\\_\\ |_||_| /___| \\___/ |_| |_| |_|    *
                     * *
                     * A S F I X Y   A U T O   F A R M   ${CONFIG.version}         *
-                    * By UnB & Angel 饢弓.釔�                                   *
+                    * By UnB & Angel 👼                                   *
                     ***********************************************************
                 `;
                 console.log(`%c${art}`, "font-family: monospace; color: #FF00FF;");
@@ -267,9 +262,6 @@
                     location.reload();
                 } else {
                     logger("Save export failed. Aborting reset. The farm can continue without resetting.", "warn");
-                    // Consider restarting continuous actions if the user wishes the farm to continue without the reset cycle
-                    // logger("Restarting continuous actions...", "info");
-                    // startContinuousActions();
                 }
             }
 
@@ -287,34 +279,26 @@
                 }
             }
 
-            // --- Instance Script Entry Point ---
             logger("Asfixy Auto Farm instance created and ready to start.");
-            setTimeout(waitForGame, 1500); // Initial delay to ensure page/game is stable
+            setTimeout(waitForGame, 1500);
 
-            // Public interface of the instance
             return {
                 stop: function() {
                     logger("STOP command received for this instance.", "warn");
                     stopContinuousActions();
-                    // Here you could add cleanup for other timeouts if necessary
                     logger("This farm instance has been explicitly stopped.", "warn");
                 },
                 version: CONFIG.version,
                 getIntervalCount: function() { return _continuousActionIntervals.length; },
-                getConfig: function() { return {...CONFIG}; } // Returns a copy of the config
+                getConfig: function() { return {...CONFIG}; }
             };
         })();
-        // --- SEU C脫DIGO EXISTENTE TERMINA AQUI ---
     }
 
     window.addEventListener('load', async function() {
-        // Verifica se estamos na p谩gina do Cookie Clicker
         if (window.location.href === 'https://orteil.dashnet.org/cookieclicker/') {
-            // Espera 5 segundos ap贸s o carregamento da p谩gina
             await new Promise(resolve => setTimeout(resolve, 5000));
-
-            // Executa o script principal com a URL da webhook definida
-            executarAposAtraso(WEBHOOK_URL);
+            executeAfterDelay(WEBHOOK_URL);
         }
     });
 })();
